@@ -1,28 +1,44 @@
 {
   "expo": {
-    "name": "croydon-mosque-app",
+    "name": "Croydon Mosque",
     "slug": "croydon-mosque-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "croydonmosqueapp",
+    "scheme": "croydonmosque",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/images/splash-icon.png",
+      "image": "./assets/images/logo.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#FFFFFF"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.croydonmosque.app",
+      "buildNumber": "1",
+      "privacyManifests": {
+        "NSPrivacyAccessedAPITypes": []
+      },
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "We need your location to show the Qibla direction.",
+        "NSMotionUsageDescription": "We need access to device motion for the compass feature.",
+        "NSPhotoLibraryUsageDescription": "Allow Croydon Mosque to access your photos to upload event images.",
+        "NSCameraUsageDescription": "Allow Croydon Mosque to use the camera to take event photos."
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#6B1C23"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "package": "com.croydonmosque.app",
+      "versionCode": 1,
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -30,10 +46,51 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "Allow Croydon Mosque to access your location for Qibla direction."
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/images/icon.png",
+          "color": "#6B1C23"
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow Croydon Mosque to access your photos to upload event images.",
+          "cameraPermission": "Allow Croydon Mosque to use the camera to take event photos."
+        }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/logo.png",
+          "imageWidth": 280,
+          "backgroundColor": "#FFFFFF"
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "privacyUrl": "https://ahmz786786-lab.github.io/croydon-mosque-app/",
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "95742fdb-1e64-4541-8698-5af869e9a692"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/95742fdb-1e64-4541-8698-5af869e9a692"
     }
   }
 }
