@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Croydon Mosque & Islamic Centre | Prayer Times, Events, Services</title>
+  <meta name="description" content="Official website of Croydon Mosque & Islamic Centre (CMIC). View daily prayer times, events, madrasah info, and community services. Located at 525 London Road, Thornton Heath, Surrey CR7 6AR.">
+  <meta name="keywords" content="croydon mosque, prayer times, qibla, islamic centre, masjid, salah, iqamah, ramadan, events, madrasah">
+  <meta property="og:title" content="Croydon Mosque & Islamic Centre">
+  <meta property="og:description" content="Prayer times, events, and community services at Croydon Mosque & Islamic Centre.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://api.aladhan.com">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="#home" class="nav-logo">
+        <img src="assets/images/logo.png" alt="Croydon Mosque Logo" class="nav-logo-img">
+      </a>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#prayer-times">Prayer Times</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#events">Events</a></li>
+        <li><a href="#madrasah">Madrasah</a></li>
+        <li><a href="#donate">Donate</a></li>
+        <li><a href="#articles">Articles</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode"></button>
+        <button class="hamburger" id="hamburger" aria-label="Menu">&#9776;</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#home">Home</a>
+    <a href="#prayer-times">Prayer Times</a>
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#events">Events</a>
+    <a href="#madrasah">Madrasah</a>
+    <a href="#donate">Donate</a>
+    <a href="#articles">Articles</a>
+    <a href="#contact">Contact</a>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <img src="assets/images/logo.png" alt="Croydon Mosque & Islamic Centre" class="hero-logo">
+      <h1>Croydon Mosque<br>& Islamic Centre</h1>
+      <p class="hero-subtitle">Serving the community since the 1970s</p>
+      <div class="hero-clock" id="hero-clock">--:-- --</div>
+      <div class="hero-date" id="hero-date"></div>
+      <div class="hero-hijri" id="hero-hijri"></div>
+      <div class="hero-buttons">
+        <a href="#prayer-times" class="btn btn-primary">Prayer Times</a>
+        <a href="#download" class="btn btn-outline">Download App</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ramadan Banner -->
+  <div class="ramadan-banner" id="ramadan-banner"></div>
+
+  <!-- Announcement Ticker -->
+  <div class="ticker">
+    <div class="ticker-content">
+      <span>&#128227; Welcome to Croydon Mosque & Islamic Centre</span>
+      <span>&#128336; Jumu'ah prayers every Friday - All welcome</span>
+      <span>&#128214; Madrasah classes Mon-Fri 5-7pm & Sat-Sun 10am-12:30pm</span>
+      <span>&#128241; Download our app and stay connected with the community</span>
+      <span>&#128227; Welcome to Croydon Mosque & Islamic Centre</span>
+      <span>&#128336; Jumu'ah prayers every Friday - All welcome</span>
+      <span>&#128214; Madrasah classes Mon-Fri 5-7pm & Sat-Sun 10am-12:30pm</span>
+      <span>&#128241; Download our app and stay connected with the community</span>
+    </div>
+  </div>
+
+  <!-- Prayer Times Section -->
+  <section class="section" id="prayer-times">
+    <div class="container">
+      <div class="section-header">
+        <h2>Today's Prayer Times</h2>
+        <p>Daily salah and iqamah times for Croydon Mosque</p>
+      </div>
+
+      <div class="prayer-times-card">
+        <div class="prayer-next">
+          <div>
+            <div class="prayer-next-label">Next Prayer</div>
+            <div class="prayer-next-name" id="next-prayer-name">Loading...</div>
+          </div>
+          <div class="prayer-next-time" id="next-prayer-time">--:--</div>
+        </div>
+        <table class="prayer-table">
+          <thead>
+            <tr>
+              <th>Prayer</th>
+              <th>Start</th>
+              <th>Iqamah</th>
+            </tr>
+          </thead>
+          <tbody id="prayer-tbody">
+            <tr><td colspan="3" style="text-align:center;padding:40px;color:var(--text-secondary)">Loading prayer times...</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="extra-times">
+        <div class="extra-time-card">
+          <div class="extra-time-label">Sunrise</div>
+          <div class="extra-time-value" id="sunrise-time">--:--</div>
+        </div>
+        <div class="extra-time-card">
+          <div class="extra-time-label">Ishraq</div>
+          <div class="extra-time-value" id="ishraq-time">--:--</div>
+        </div>
+        <div class="extra-time-card">
+          <div class="extra-time-label">Zawaal</div>
+          <div class="extra-time-value" id="zawaal-time">--:--</div>
+        </div>
+      </div>
+
+      <p style="text-align:center;margin-top:20px;font-size:0.85rem;color:var(--text-secondary)">
+        Start times from <a href="https://aladhan.com" target="_blank" rel="noopener">Aladhan API</a> | For official Islamic dates refer to <a href="https://www.wifaqululama.co.uk/" target="_blank" rel="noopener">Wifaqul Ulama</a>
+      </p>
+
+      <!-- Ramadan Timetable Download -->
+      <div id="ramadan-download" style="display:none;max-width:700px;margin:24px auto 0;text-align:center;">
+        <a href="https://www.croydonmosque.com/pdf/ramadhan_2026.pdf" target="_blank" rel="noopener" class="btn btn-primary" style="background:var(--gold);color:var(--maroon-dark);">
+          &#128197; Download Ramadhan 2026 Timetable & Zakat Guide (PDF)
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live Stream Section -->
+  <section class="section section-alt" id="livestream">
+    <div class="container">
+      <div style="max-width:700px;margin:0 auto;text-align:center;">
+        <h2 style="color:var(--primary);margin-bottom:12px;">Live Friday Bayaan</h2>
+        <p style="color:var(--text-secondary);margin-bottom:24px;">Listen to the live Bayaan every Friday at 11:55am and 2nd Bayaan at 1:00pm via Mixlr.</p>
+        <a href="https://mixlr.com/croydonmasjid" target="_blank" rel="noopener" class="btn" style="background:var(--maroon);color:#fff;">
+          &#127911; Listen Live on Mixlr
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="section section-alt" id="about">
+    <div class="container">
+      <div class="section-header">
+        <h2>About Us</h2>
+        <p>Serving the Muslim community of Croydon and beyond</p>
+      </div>
+
+      <div class="about-text">
+        <p>The Croydon Mosque & Islamic Centre (CMIC) emerged in the early 1970s, beginning in a small ground-floor hall in West Croydon before evolving over two decades into its present structure. The facility now comprises seven large halls with capacity for 3,500 people, expandable to 4,000.</p>
+        <p>The centre welcomes approximately 9,000 weekly visitors under normal circumstances, surging to 30,000 during Ramadan. It serves a diverse Muslim population of roughly 20,000 across the London Borough of Croydon, including communities from Pakistan, India, Bangladesh, East Africa, Somalia, Turkey, Afghanistan, the Middle East, and Bosnia.</p>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-number">9,000+</div>
+          <div class="stat-label">Weekly Visitors</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">30,000</div>
+          <div class="stat-label">Ramadan Visitors</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">3,500</div>
+          <div class="stat-label">Capacity</div>
+        </div>
+      </div>
+
+      <!-- Capacity -->
+      <div class="capacity-card">
+        <div class="capacity-item">
+          <div class="capacity-number">3,000</div>
+          <div class="capacity-label">Men</div>
+        </div>
+        <div class="capacity-divider"></div>
+        <div class="capacity-item">
+          <div class="capacity-number">500</div>
+          <div class="capacity-label">Women</div>
+        </div>
+      </div>
+
+      <!-- Facilities -->
+      <div class="facilities-card">
+        <div class="facility-row">
+          <span class="facility-name">Wudu Area</span>
+          <div class="facility-badges"><span class="facility-badge">Men</span><span class="facility-badge">Women</span></div>
+        </div>
+        <div class="facility-row">
+          <span class="facility-name">Toilets</span>
+          <div class="facility-badges"><span class="facility-badge">Men</span><span class="facility-badge">Women</span></div>
+        </div>
+        <div class="facility-row">
+          <span class="facility-name">Parking</span>
+          <span style="color:var(--success);font-size:1.2rem">&#10003;</span>
+        </div>
+        <div class="facility-row">
+          <span class="facility-name">Wheelchair Access</span>
+          <span style="color:var(--success);font-size:1.2rem">&#10003;</span>
+        </div>
+        <div class="facility-row">
+          <span class="facility-name">Lift Access (3 Lifts)</span>
+          <span style="color:var(--success);font-size:1.2rem">&#10003;</span>
+        </div>
+      </div>
+
+      <!-- Management -->
+      <div class="community-services">
+        <h3 style="text-align:center;color:var(--primary);margin-bottom:16px;font-size:1.3rem;">Mosque Management</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;max-width:700px;margin:0 auto;">
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 18px;">
+            <div style="font-weight:600;color:var(--text);">Imams</div>
+            <div style="font-size:0.9rem;color:var(--text-secondary);">Mufti Muhammad Yusuf Danka<br>Mufti Inaam-ul-haq Malik</div>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 18px;">
+            <div style="font-weight:600;color:var(--text);">Chairman</div>
+            <div style="font-size:0.9rem;color:var(--text-secondary);">Afzal Hussen</div>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 18px;">
+            <div style="font-weight:600;color:var(--text);">Ameer</div>
+            <div style="font-size:0.9rem;color:var(--text-secondary);">M Delowar Hossain</div>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 18px;">
+            <div style="font-weight:600;color:var(--text);">Key Officers</div>
+            <div style="font-size:0.9rem;color:var(--text-secondary);">M Saqib Khan (Finance), Riaz Ali (Welfare), M Rafiq Razzak (Fundraising), Waqas Khan (Madrassah), Haroon K Okhai (Funeral Services)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Community Services -->
+      <div class="community-services">
+        <h3 style="text-align:center;color:var(--primary);margin-bottom:16px;font-size:1.3rem;">Community Services</h3>
+        <ul class="bullet-list">
+          <li>Marriage introductory services</li>
+          <li>Mortuary & funeral services (Muslim Burial Protocol)</li>
+          <li>Weekly Islamic lectures</li>
+          <li>Legal, medical & police surgeries (monthly)</li>
+          <li>Interfaith group participation</li>
+          <li>Annual Islamic exhibitions</li>
+          <li>Islamic awareness courses for local authorities</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="section" id="services">
+    <div class="container">
+      <div class="section-header">
+        <h2>Our Services</h2>
+        <p>Comprehensive services for the community</p>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">&#128214;</div>
+          <div class="service-content">
+            <h3>Madrasa Classes</h3>
+            <div class="service-timing">Mon-Fri 5-6:45pm | Sat-Sun 10am-12:30pm</div>
+            <div class="service-desc">Islamic education for ages 5-12</div>
+          </div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">&#127891;</div>
+          <div class="service-content">
+            <h3>Alimah Classes</h3>
+            <div class="service-timing">Mon-Fri 5-7:30pm</div>
+            <div class="service-desc">Islamic studies for young women</div>
+          </div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">&#128101;</div>
+          <div class="service-content">
+            <h3>Sisters Majlis</h3>
+            <div class="service-timing">Mon-Thu 10am-1pm</div>
+            <div class="service-desc">Islamic study, Quran recitation, Arabic</div>
+          </div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">&#128214;</div>
+          <div class="service-content">
+            <h3>Seniors Brothers Class</h3>
+            <div class="service-timing">Monday & Tuesday evenings</div>
+            <div class="service-desc">Islamic studies for senior brothers</div>
+          </div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">&#127908;</div>
+          <div class="service-content">
+            <h3>English Lecture</h3>
+            <div class="service-timing">Saturday evenings</div>
+            <div class="service-desc">By Sheikh Inaam ul Haq Malik</div>
+          </div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">&#128218;</div>
+          <div class="service-content">
+            <h3>Dars e Hadith & Fiqh</h3>
+            <div class="service-timing">Wednesday evenings (Urdu)</div>
+            <div class="service-desc">By Mufti M Y Danka</div>
+          </div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">&#10084;&#65039;</div>
+          <div class="service-content">
+            <h3>Nikah Services</h3>
+            <div class="service-desc">Islamic marriage & civil registration. Combined: &pound;125 | Single: &pound;75</div>
+            <div class="service-desc" style="margin-top:6px;font-size:0.8rem;">
+              <a href="tel:07737198776" style="color:var(--primary)">Br. Imran Khan: 07737 198 776</a> |
+              <a href="tel:07949176786" style="color:var(--primary)">Br. Haroon Okhai: 07949 176 786</a>
+            </div>
+          </div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">&#127799;</div>
+          <div class="service-content">
+            <h3>Janazah Service</h3>
+            <div class="service-desc">Funeral services - 24/7 emergency line. Arrangement fee: &pound;800</div>
+            <div class="service-desc" style="margin-top:6px;font-size:0.8rem;">
+              <a href="tel:07404050893" style="color:var(--primary);font-weight:600;">Emergency: 07404 050 893</a>
+            </div>
+            <div class="service-desc" style="margin-top:4px;font-size:0.78rem;color:var(--text-secondary);">
+              Burial: Green Lawn Memorial Park, Chelsham | Queens Road Cemetery, Croydon
+            </div>
+          </div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">&#128737;&#65039;</div>
+          <div class="service-content">
+            <h3>Free Legal Advice</h3>
+            <div class="service-timing">Sundays from Zohr</div>
+            <div class="service-desc">Walk-in legal consultation - no appointment needed</div>
+          </div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">&#127970;</div>
+          <div class="service-content">
+            <h3>Hall Hire</h3>
+            <div class="service-desc">Rental for Islamic functions. Min &pound;150 (up to 4hrs), &pound;25/hr extra. Deposit: &pound;100</div>
+            <div class="service-desc" style="margin-top:6px;font-size:0.8rem;">
+              <a href="tel:07894942383" style="color:var(--primary)">Br. M Rafiq Razzak: 0789 494 2383</a>
+            </div>
+          </div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">&#9884;&#65039;</div>
+          <div class="service-content">
+            <h3>Circumcision</h3>
+            <div class="service-desc">Referrals to qualified medical professionals</div>
+            <div class="service-desc" style="margin-top:6px;font-size:0.78rem;color:var(--text-secondary);">
+              Dr Zahid Ghufoor (up to 2 months): <a href="tel:07779615099" style="color:var(--primary)">07779 615 099</a><br>
+              Dr Mohammed Sabih (up to 12 months): <a href="tel:02085492550" style="color:var(--primary)">020 8549 2550</a><br>
+              Dr De Silva, Luton (any age): <a href="tel:01582561999" style="color:var(--primary)">01582 561 999</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Events Section -->
+  <section class="section section-alt" id="events">
+    <div class="container">
+      <div class="section-header">
+        <h2>Events & Classes</h2>
+        <p>Upcoming activities at the mosque</p>
+      </div>
+
+      <div class="event-filters">
+        <button class="filter-chip active" data-filter="all">All</button>
+        <button class="filter-chip" data-filter="lecture">Lecture</button>
+        <button class="filter-chip" data-filter="class">Class</button>
+        <button class="filter-chip" data-filter="community">Community</button>
+        <button class="filter-chip" data-filter="special">Special</button>
+      </div>
+
+      <div class="events-grid">
+        <div class="event-card" data-type="lecture">
+          <div class="event-content">
+            <span class="event-badge badge-lecture">Lecture</span>
+            <h3>Weekly Dars - Gardens of the Righteous</h3>
+            <p>Join us every Saturday after Maghrib for an enlightening session on Riyad us Saliheen.</p>
+            <div class="event-meta">
+              <span>&#128197; Every Saturday after Maghrib</span>
+              <span>&#128205; Main Hall</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="event-card" data-type="lecture">
+          <div class="event-content">
+            <span class="event-badge badge-lecture">Lecture</span>
+            <h3>Live Friday Bayaan</h3>
+            <p>Live Bayaan every Friday at 11:55am and 2nd Bayan at 1pm via Mixlr. Join us for spiritual enrichment.</p>
+            <div class="event-meta">
+              <span>&#128197; Every Friday 11:55 AM & 1:00 PM</span>
+              <span>&#128205; Main Hall & Online (Mixlr)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="event-card" data-type="class">
+          <div class="event-content">
+            <span class="event-badge badge-class">Class</span>
+            <h3>Beginner Tajwid al Quran Classes</h3>
+            <p>Learn the rules of Quranic recitation in a structured beginner-friendly environment.</p>
+            <div class="event-meta">
+              <span>&#128197; Monday & Tuesday evenings</span>
+              <span>&#128205; Classroom 2</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="event-card" data-type="community">
+          <div class="event-content">
+            <span class="event-badge badge-community">Community</span>
+            <h3>Boys Youth Club</h3>
+            <p>Weekly activities, sports, and Islamic education for boys aged 12-16.</p>
+            <div class="event-meta">
+              <span>&#128197; Every Sunday 5:15 - 7:15 PM</span>
+              <span>&#128205; Youth Hall</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="event-card" data-type="community">
+          <div class="event-content">
+            <span class="event-badge badge-community">Community</span>
+            <h3>Girls Youth Club</h3>
+            <p>Fortnightly activities and Islamic education for girls aged 10-19.</p>
+            <div class="event-meta">
+              <span>&#128197; Fortnightly Sunday 3:00 - 5:00 PM</span>
+              <span>&#128205; Sisters Hall</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="event-card" data-type="class">
+          <div class="event-content">
+            <span class="event-badge badge-class">Class</span>
+            <h3>Sisters Majlis</h3>
+            <p>Islamic study circle, Quran recitation and Arabic language for sisters.</p>
+            <div class="event-meta">
+              <span>&#128197; Mon-Thu 10:00 AM - 1:00 PM</span>
+              <span>&#128205; Sisters Section</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Madrasah Section -->
+  <section class="section" id="madrasah">
+    <div class="container">
+      <div class="section-header">
+        <h2>Madrasah</h2>
+        <p>Islamic education for the next generation</p>
+      </div>
+
+      <div class="madrasah-content">
+        <p class="madrasah-text">Our aim is to educate the youth of the Ummah to inculcate the teachings of the Qur'an and Sunnah into their daily lives. In gaining Islamic knowledge and morals, students will be equipped to confidently transition into adulthood with a dignified character and respectable values that will further benefit the wider community and future generations.</p>
+
+        <p class="madrasah-text">The Croydon Mosque and Islamic Centre Madrasah provides structured learning for boys and girls aged 4-17. Children are taught Qur'anic and Islamic studies alongside authentic du'a & adhkaar memorisation. The madrassah enrolls over 500 children. Direct debit payment is mandatory for all students.</p>
+
+        <div class="timings-grid">
+          <div class="timing-card">
+            <h3>Weekdays</h3>
+            <p>Mon - Fri: 5:00pm - 7:00pm</p>
+          </div>
+          <div class="timing-card">
+            <h3>Weekend</h3>
+            <p>Sat - Sun: 10:00am - 12:30pm</p>
+          </div>
+        </div>
+
+        <div class="madrasah-buttons">
+          <a href="https://cmic.raziil.com/screens/registration.aspx" target="_blank" rel="noopener" class="btn btn-green">&#128100; Register Now</a>
+          <a href="https://pay.gocardless.com/AL000965VXBQP8" target="_blank" rel="noopener" class="btn btn-blue">&#128179; Setup Direct Debit</a>
+          <a href="https://cmic.raziil.com/" target="_blank" rel="noopener" class="btn btn-purple">&#128274; Raziil Login</a>
+          <a href="https://www.croydonmosque.com/pdf/CMIC_Madrasah_Academic_Calendar_2025_to_2026.pdf" target="_blank" rel="noopener" class="btn" style="background:var(--gold);color:var(--maroon-dark);">&#128197; Academic Calendar 2025-2026</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Donate Section -->
+  <section class="section section-alt" id="donate">
+    <div class="container">
+      <div class="section-header">
+        <h2>Support the Mosque</h2>
+        <p>Your generous donations help keep our doors open</p>
+      </div>
+
+      <div class="donate-grid">
+        <div class="donate-card">
+          <div class="donate-header" style="background:#8E44AD;">Sadqah / Fitrana / Zakaat</div>
+          <div class="donate-body">
+            <a href="https://donate.supportedgiving.com/Zakaat-Fitra-Sadaqa?qrCode=PEGp03BmEF4C&visitor=5d2345d0-e7a9-4d51-ba53-4ef737b55f64" target="_blank" rel="noopener" class="donate-btn" style="background:#8E44AD;">Donate Now</a>
+          </div>
+        </div>
+        <div class="donate-card">
+          <div class="donate-header" style="background:#27AE60;">Day to Day Running</div>
+          <div class="donate-body">
+            <a href="https://donate.supportedgiving.com/general-donations?qrCode=qClTpxbQmEfP&visitor=f2ee4c34-ba13-4b1c-89b6-4cdd33628597" target="_blank" rel="noopener" class="donate-btn" style="background:#27AE60;">Donate Now</a>
+          </div>
+        </div>
+        <div class="donate-card">
+          <div class="donate-header" style="background:#3498DB;">Help Towards Building Cost</div>
+          <div class="donate-body">
+            <a href="https://donate.supportedgiving.com/construction?qrCode=7MFOzMhJq5ZE&visitor=53dbd4b8-5257-4c47-9f59-3fbbbb1701cb" target="_blank" rel="noopener" class="donate-btn" style="background:#3498DB;">Donate Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Articles Section -->
+  <section class="section" id="articles">
+    <div class="container">
+      <div class="section-header">
+        <h2>Islamic Articles</h2>
+        <p>58 downloadable PDF articles on Islamic jurisprudence, practice, and theology</p>
+      </div>
+
+      <div style="max-width:900px;margin:0 auto;">
+        <input type="text" id="article-search" placeholder="Search articles..." style="width:100%;padding:14px 20px;border-radius:12px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:1rem;margin-bottom:24px;outline:none;">
+
+        <div class="articles-list" id="articles-list">
+          <a href="https://www.croydonmosque.com/pdf/Advice_for_the_Husband_and_Wife.pdf" target="_blank" rel="noopener" class="article-item">&#128196; Advice for the Husband and Wife</a>
+          <a href="https://www.croydonmosque.com/pdf/Tahawiyya.pdf" target="_blank" rel="noopener" class="article-item">&#128196; Al-Aqida Al-Tahawiyya</a>
+          <a href="https://www.croydonmosque.com/pdf/Aqidah_Khatme_Nubuwwat_The_Finality_of_Prophethood_in_the_Light_of_Quran_and_Sunnah.pdf" target="_blank" rel="noopener" class="article-item">&#128196; Aqidah Khatme Nubuwwat - The Finality of Prophethood</a>
+          <a href="https://www.croydonmosque.com/pdf/Ask_for_Wellbeing_Solace_and_Contentment_from_Allah.pdf" target="_blank" rel="noopener" class="article-item">&#128196; Ask for Wellbeing, Solace and Contentment from Allah</a>
+          <a href="https://www.croydonmosque.com/pdf/Authentic_Virtues_of_15th_Shaban_Lailatul_Barat.pdf" target="_blank" rel="noopener" class="article-item">&#128196; Authentic Virtues of 15th Shaban (Lailatul Barat)</a>
+          <a href="https://www.croydonmosque.com/pdf/51_Sunnats_of_Salah_in_the_light_of_Saheeh_Ahadith.pdf" target="_blank" rel="noopener" class="article-item">&#128196; 51 Sunnats of Salah in the Light of Saheeh Ahadith</a>
+          <a href="https://www.croydonmosque.com/pdf/Every_Religion_Has_A_Special_Characteristic_And_the_Special_Characteristic_of_Islam_is_Haya.pdf" target="_blank" rel="noopener" class="article-item">&#128196; The Special Characteristic of Islam is Haya (Modesty)</a>
+          <a href="https://www.croydonmosque.com/pdf/Headgear_Topee_in_Islam.pdf" target="_blank" rel="noopener" class="article-item">&#128196; Headgear (Topee) in Islam</a>
+          <a href="https://www.croydonmosque.com/pdf/In_Salah_with_Congregation_It_is_Sunnah_to_Straighten_the_Rows_by_Joining_Shoulder_to_Shoulder_and_Not_Feet_to_Feet.pdf" target="_blank" rel="noopener" class="article-item">&#128196; Straightening Rows in Congregational Salah</a>
+          <a href="https://www.croydonmosque.com/pdf/It_is_Not_Permissible_for_Men_to_Hang_their_Lower_Garment_Below_their_Ankle.pdf" target="_blank" rel="noopener" class="article-item">&#128196; Lower Garment Below the Ankle</a>
+          <a href="https://www.croydonmosque.com/pdf/It_Is_Not_Permissible_to_Combine_Two_Salahs_before_their_Allotted_Time.pdf" target="_blank" rel="noopener" class="article-item">&#128196; Combining Two Salahs Before Their Allotted Time</a>
+          <a href="https://www.croydonmosque.com/pdf/It_Is_Not_Permissible_To_Deliver_the_Jumah_Khutbah_In_A_Language_Other_Than_Arabic.pdf" target="_blank" rel="noopener" class="article-item">&#128196; Jumah Khutbah Language Ruling</a>
+          <a href="https://www.croydonmosque.com/pdf/It_Is_Not_Permissible_To_Talk_Or_Pray_Salah_During_The_Jumah_Khutbah.pdf" target="_blank" rel="noopener" class="article-item">&#128196; Talking or Praying During the Jumah Khutbah</a>
+          <a href="https://www.croydonmosque.com/pdf/Israa_Wal_Meraaj_The_Journey_by_Night_and_Ascension_to_the_Heavens.pdf" target="_blank" rel="noopener" class="article-item">&#128196; Israa Wal Meraaj - The Night Journey and Ascension</a>
+          <a href="https://www.croydonmosque.com/pdf/JAHEZ_Dowry_Conditions_set_by_the_Groom_for_Marriage.pdf" target="_blank" rel="noopener" class="article-item">&#128196; Jahez (Dowry) Conditions for Marriage</a>
+          <a href="https://www.croydonmosque.com/pdf/Khutbah_Hajjatul_Wida_Farewell_sermon_of_the_Holy_Prophet_s.a.w._at_the_journey_of_Hajj.pdf" target="_blank" rel="noopener" class="article-item">&#128196; Khutbah Hajjatul Wida - Farewell Sermon of the Prophet</a>
+          <a href="https://www.croydonmosque.com/pdf/Masah_wiping_upon_the_Socks.pdf" target="_blank" rel="noopener" class="article-item">&#128196; Masah (Wiping) Upon the Socks</a>
+          <a href="https://www.croydonmosque.com/pdf/Medical_Science_and_the_Islamic_Concept_of_Purity.pdf" target="_blank" rel="noopener" class="article-item">&#128196; Medical Science and the Islamic Concept of Purity</a>
+          <a href="https://www.croydonmosque.com/pdf/Prophet_Muhammad_Peace_be_UponHim_In_Major_World_Scriptures.pdf" target="_blank" rel="noopener" class="article-item">&#128196; Prophet Muhammad (PBUH) in Major World Scriptures</a>
+          <a href="https://www.croydonmosque.com/pdf/Qadha_ul_Fawait_The_Performing_of_Missed_Prayers_Qadha_Salah.pdf" target="_blank" rel="noopener" class="article-item">&#128196; Qadha-ul-Fawait - Performing Missed Prayers</a>
+          <a href="https://www.croydonmosque.com/pdf/Relations_with_Non_Muslims_According_to_Islam.pdf" target="_blank" rel="noopener" class="article-item">&#128196; Relations with Non-Muslims According to Islam</a>
+          <a href="https://www.croydonmosque.com/pdf/Rules_Concerning_Sacrifice_on_Dhul_Hijjah_Udhiya_Qurbani.pdf" target="_blank" rel="noopener" class="article-item">&#128196; Rules Concerning Sacrifice - Udhiya/Qurbani</a>
+          <a href="https://www.croydonmosque.com/pdf/Seventy-Two_Signs_of_Trials_Fitnah_and_Tribulations.pdf" target="_blank" rel="noopener" class="article-item">&#128196; Seventy-Two Signs of Trials, Fitnah and Tribulations</a>
+          <a href="https://www.croydonmosque.com/pdf/Smoking_Cigarettes_is_not_Permissible_in_Islam.pdf" target="_blank" rel="noopener" class="article-item">&#128196; Smoking Cigarettes is Not Permissible in Islam</a>
+          <a href="https://www.croydonmosque.com/pdf/SPREADING_THE_MESSAGE_OF_ISLAM_Dawah_Tabligh.pdf" target="_blank" rel="noopener" class="article-item">&#128196; Spreading the Message of Islam - Dawah Tabligh</a>
+          <a href="https://www.croydonmosque.com/pdf/Symbols_of_Allah_or_Symbols_of_Islaam.pdf" target="_blank" rel="noopener" class="article-item">&#128196; Symbols of Allah or Symbols of Islam</a>
+          <a href="https://www.croydonmosque.com/pdf/The_20_Rakats_Taraweeh_prayer_is_a_Sunnah_Muakkadah_Those_who_reject_it_go_against_the_Sunnah_and_the_consensus_of_the_Sahabah.pdf" target="_blank" rel="noopener" class="article-item">&#128196; The 20 Rakats Taraweeh Prayer is a Sunnah Muakkadah</a>
+          <a href="https://www.croydonmosque.com/pdf/The_Authority_of_Sunnah_and_Hadith_in_the_light_of_the_Holy_Quran.pdf" target="_blank" rel="noopener" class="article-item">&#128196; The Authority of Sunnah and Hadith</a>
+          <a href="https://www.croydonmosque.com/pdf/The_Birth_and_Childhood_of_the_Prophet_[Pbuh].pdf" target="_blank" rel="noopener" class="article-item">&#128196; The Birth and Childhood of the Prophet (PBUH)</a>
+          <a href="https://www.croydonmosque.com/pdf/The_Concept_of_Borrowing_Money_In_Islam.pdf" target="_blank" rel="noopener" class="article-item">&#128196; The Concept of Borrowing Money in Islam</a>
+          <a href="https://www.croydonmosque.com/pdf/The_Conditions_of_Pictures_and_Photography_being_Impermissible_in_Light_of_the_Shariah.pdf" target="_blank" rel="noopener" class="article-item">&#128196; Pictures and Photography in Light of the Shari'ah</a>
+          <a href="https://www.croydonmosque.com/pdf/The_Correct_Time_at_which_Subah_Sadiq_and_Shafq_Commences.pdf" target="_blank" rel="noopener" class="article-item">&#128196; The Correct Time of Subah Sadiq and Shafq</a>
+          <a href="https://www.croydonmosque.com/pdf/The_Differences_In_The_Prayer_Salah_of_Men_and_Women.pdf" target="_blank" rel="noopener" class="article-item">&#128196; Differences in the Prayer of Men and Women</a>
+          <a href="https://www.croydonmosque.com/pdf/The_Funeral_Rites_in_Islam_Janazah.pdf" target="_blank" rel="noopener" class="article-item">&#128196; The Funeral Rites in Islam (Janazah)</a>
+          <a href="https://www.croydonmosque.com/pdf/The_Giving_of_Three_Talaaqs_in_One_Sitting_According_to_Shariah.pdf" target="_blank" rel="noopener" class="article-item">&#128196; The Giving of Three Talaaqs in One Sitting</a>
+          <a href="https://www.croydonmosque.com/pdf/THE_GREATNESS_OF_GOOD_FAMILY_TIES.pdf" target="_blank" rel="noopener" class="article-item">&#128196; The Greatness of Good Family Ties</a>
+          <a href="https://www.croydonmosque.com/pdf/The_Islamic_Conditions_of_Zabihah_-_slaughter_-_pertaining_to_Halal_and_Haram.pdf" target="_blank" rel="noopener" class="article-item">&#128196; Islamic Conditions of Zabihah - Halal and Haram</a>
+          <a href="https://www.croydonmosque.com/pdf/The_History_of_the_UK_following_the_Saudi_Arabia.pdf" target="_blank" rel="noopener" class="article-item">&#128196; UK Following the Saudi Arabia Moonsighting Decision</a>
+          <a href="https://www.croydonmosque.com/pdf/The_Key_to_All_Evils_are_Alcohol_and_Drugs.pdf" target="_blank" rel="noopener" class="article-item">&#128196; The Key to All Evils are Alcohol and Drugs</a>
+          <a href="https://www.croydonmosque.com/pdf/The_Manners_of_Clothing_&_Covering_of_Women_According_To_Islam.pdf" target="_blank" rel="noopener" class="article-item">&#128196; Clothing & Covering of Women According to Islam</a>
+          <a href="https://www.croydonmosque.com/pdf/The_Muqtadi_behind_the_Imam_in_Salah_is_Not_required_to_Recite_Qiraat.pdf" target="_blank" rel="noopener" class="article-item">&#128196; The Muqtadi Behind the Imam - Reciting Qiraat</a>
+          <a href="https://www.croydonmosque.com/pdf/The_position_of_a_guardian_Wali_in_the_Nikah_of_a_mature_female.pdf" target="_blank" rel="noopener" class="article-item">&#128196; The Position of a Guardian (Wali) in Nikah</a>
+          <a href="https://www.croydonmosque.com/pdf/The_Reality_behind_Saudi_Government_Creating_a_United_Moonsighting_the_Umm_ul_Qura_Calendar_for_All_Muslim_Countries_and_the_Neglect_of_the_Masses.pdf" target="_blank" rel="noopener" class="article-item">&#128196; The Reality Behind Saudi Umm ul Qura Calendar</a>
+          <a href="https://www.croydonmosque.com/pdf/The_Reality_of_Celebrating_Eid_Milad_Un_Nabi_[Pbuh].pdf" target="_blank" rel="noopener" class="article-item">&#128196; The Reality of Celebrating Eid Milad-un-Nabi (PBUH)</a>
+          <a href="https://www.croydonmosque.com/pdf/The_Reality_of_Singing_and_Music_in_Islam.pdf" target="_blank" rel="noopener" class="article-item">&#128196; The Reality of Singing and Music in Islam</a>
+          <a href="https://www.croydonmosque.com/pdf/The_Reality_of_Sins.pdf" target="_blank" rel="noopener" class="article-item">&#128196; The Reality of Sins</a>
+          <a href="https://www.croydonmosque.com/pdf/The_Reality_of_Yazeed_and_his_Association_with_the_happenings_of_Shaheed_E_Karbala.pdf" target="_blank" rel="noopener" class="article-item">&#128196; The Reality of Yazeed and Shaheed E Karbala</a>
+          <a href="https://www.croydonmosque.com/pdf/The_Reciting_and_Handling_of_the_Quran_in_the_State_of_Impurity.pdf" target="_blank" rel="noopener" class="article-item">&#128196; Reciting and Handling the Quran in State of Impurity</a>
+          <a href="https://www.croydonmosque.com/pdf/The_Rectification_Programme_for_Mankind.pdf" target="_blank" rel="noopener" class="article-item">&#128196; The Rectification Programme for Mankind</a>
+          <a href="https://www.croydonmosque.com/pdf/The_Shariah_Limit_for_Zakat_on_whom_it_is_Rightfully_Due.pdf" target="_blank" rel="noopener" class="article-item">&#128196; The Shariah Limit for Zakat</a>
+          <a href="https://www.croydonmosque.com/pdf/The_Shariah_Ruling_of_Obtaining_Khula_and_Faskh_Nikah_the_Civil_Court.pdf" target="_blank" rel="noopener" class="article-item">&#128196; Shariah Ruling of Khula and Faskh Nikah</a>
+          <a href="https://www.croydonmosque.com/pdf/The_Status_of_Imam_Azam_Abu_Hanifa_Noman_bin_Thabit..pdf" target="_blank" rel="noopener" class="article-item">&#128196; The Status of Imam Azam Abu Hanifa (Rahimahullah)</a>
+          <a href="https://www.croydonmosque.com/pdf/The_Status_of_the_Sahabah_In_The_Light_of_the_Holy_Quran.pdf" target="_blank" rel="noopener" class="article-item">&#128196; The Status of the Sahabah in Light of the Holy Quran</a>
+          <a href="https://www.croydonmosque.com/pdf/The_Wisdom_behind_the_names_Muhammad_Ahmad_of_the_Prophet_PBUH.pdf" target="_blank" rel="noopener" class="article-item">&#128196; The Wisdom Behind the Names Muhammad & Ahmad</a>
+          <a href="https://www.croydonmosque.com/pdf/To_Perform_360_Good_Deeds_as_Sadaqah_Charity_a_Day_is_Compulsory_and_the_Easiest_Way_to_Fulfill_Them.pdf" target="_blank" rel="noopener" class="article-item">&#128196; 360 Good Deeds as Sadaqah Charity a Day</a>
+          <a href="https://www.croydonmosque.com/pdf/To_Attend_and_Assist_In_the_Upkeep_and_Maintenance_of_the_Masjid_are_Signs_of_Iman.pdf" target="_blank" rel="noopener" class="article-item">&#128196; Upkeep and Maintenance of the Masjid - Signs of Iman</a>
+          <a href="https://www.croydonmosque.com/pdf/To_Perform_Dua_whilst_raising_the_hands_after_a_Fard_Salah_is_Sunnah.pdf" target="_blank" rel="noopener" class="article-item">&#128196; Performing Dua After Fard Salah is Sunnah</a>
+          <a href="https://www.croydonmosque.com/pdf/UK_Moonsighting_Seminar_2006_in_Croydon_Masjid_and_Islamic_Centre.pdf" target="_blank" rel="noopener" class="article-item">&#128196; UK Moonsighting Seminar 2006 - Croydon Masjid</a>
+        </div>
+
+        <p style="text-align:center;margin-top:24px;color:var(--text-secondary);font-size:0.85rem;">
+          All articles are in PDF format. Adobe PDF Reader may be required.
+        </p>
+
+        <!-- Moon Sighting Resources -->
+        <h3 style="color:var(--primary);margin-top:40px;margin-bottom:16px;text-align:center;font-size:1.2rem;">Moon Sighting Resources</h3>
+        <div class="articles-list">
+          <a href="https://www.wifaqululama.co.uk/" target="_blank" rel="noopener" class="article-item">&#127769; Wifaqul Ulama - Official UK Moon Sighting</a>
+          <a href="http://www.icoproject.org/" target="_blank" rel="noopener" class="article-item">&#127769; Islamic Crescents' Observation Project (ICOP)</a>
+          <a href="https://www.youtube.com/watch?v=pgovgPIzN5Y" target="_blank" rel="noopener" class="article-item">&#127909; UK Moonsighting by Mufti Saeed Ahmad Palanpuri (YouTube)</a>
+          <a href="https://www.youtube.com/watch?v=BKC4wjSkLx0" target="_blank" rel="noopener" class="article-item">&#127909; Mufti Ebrahim Desai on Not Following Saudi Sighting (YouTube)</a>
+          <a href="https://www.youtube.com/watch?v=f1wy1Z6_Y7I" target="_blank" rel="noopener" class="article-item">&#127909; Reality of Saudi Moonsighting by Mufti Ebrahim Desai (YouTube)</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="section section-alt" id="contact">
+    <div class="container">
+      <div class="section-header">
+        <h2>Contact Us</h2>
+        <p>Get in touch with Croydon Mosque & Islamic Centre</p>
+      </div>
+
+      <div class="contact-grid">
+        <div>
+          <div class="contact-info">
+            <div class="contact-item">
+              <div class="contact-icon">&#128205;</div>
+              <span>525 London Road, Thornton Heath, Surrey CR7 6AR</span>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">&#128222;</div>
+              <a href="tel:02086848200" style="color:var(--text)">020 8684 8200</a>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">&#9993;</div>
+              <a href="mailto:enquiries@croydonmosque.com" style="color:var(--text)">enquiries@croydonmosque.com</a>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">&#127760;</div>
+              <a href="https://www.croydonmosque.com" target="_blank" rel="noopener" style="color:var(--text)">www.croydonmosque.com</a>
+            </div>
+          </div>
+
+          <div class="quick-actions">
+            <a href="tel:02086848200" class="action-btn" style="background:var(--maroon);">&#128222; Call</a>
+            <a href="mailto:enquiries@croydonmosque.com" class="action-btn" style="background:var(--gold);color:var(--maroon-dark);">&#9993; Email</a>
+            <a href="https://maps.google.com/?q=525+London+Road+Thornton+Heath+Surrey+CR7+6AR" target="_blank" rel="noopener" class="action-btn" style="background:#4A90D9;">&#128506; Directions</a>
+            <a href="https://www.croydonmosque.com/?section=home" target="_blank" rel="noopener" class="action-btn" style="background:#25D366;">&#10084; Donate</a>
+          </div>
+
+          <div class="social-links">
+            <a href="https://www.facebook.com/croydonmasjid" target="_blank" rel="noopener" class="social-link" aria-label="Facebook">f</a>
+            <a href="https://www.instagram.com/croydonmosque" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">&#128247;</a>
+            <a href="https://www.youtube.com/croydonmosque" target="_blank" rel="noopener" class="social-link" aria-label="YouTube">&#9654;</a>
+            <a href="https://croydonmosque.mixlr.com/" target="_blank" rel="noopener" class="social-link" aria-label="Mixlr">&#127911;</a>
+          </div>
+        </div>
+
+        <div class="contact-map">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2493.5!2d-0.1063!3d51.3984!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4876073e47e3c0e7%3A0x2a3c5d5a5e5e5e5e!2s525%20London%20Rd%2C%20Thornton%20Heath%20CR7%206AR!5e0!3m2!1sen!2suk!4v1" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+
+      <!-- Emergency Contacts -->
+      <div class="emergency-card">
+        <span style="font-size:1.5rem">&#9888;&#65039;</span>
+        <div style="flex:1">
+          <h3>Janazah Emergency Line</h3>
+          <a href="tel:07404050893">07404 050 893</a>
+        </div>
+        <a href="tel:07404050893" style="font-size:1.5rem">&#128222;</a>
+      </div>
+
+      <div style="max-width:1000px;margin:20px auto 0;">
+        <h3 style="color:var(--primary);margin-bottom:16px;text-align:center;">Emergency Contacts</h3>
+        <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;">
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 24px;text-align:center;flex:1;min-width:200px;">
+            <div style="font-weight:600;color:var(--text);">Imran Khan</div>
+            <a href="tel:07737198776" style="color:var(--primary);font-weight:700;">07737 198 776</a>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 24px;text-align:center;flex:1;min-width:200px;">
+            <div style="font-weight:600;color:var(--text);">Mohammad Saumtally</div>
+            <a href="tel:07963164028" style="color:var(--primary);font-weight:700;">07963 164 028</a>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 24px;text-align:center;flex:1;min-width:200px;">
+            <div style="font-weight:600;color:var(--text);">Haroon Okhai</div>
+            <a href="tel:07949176786" style="color:var(--primary);font-weight:700;">07949 176 786</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- App Download Section -->
+  <section class="app-section" id="download">
+    <h2>Download Our App</h2>
+    <p>Stay connected with prayer times, events, Qibla direction and more right from your phone.</p>
+    <div class="store-badges">
+      <a href="https://play.google.com/store/apps/details?id=com.croydonmosque.app" target="_blank" rel="noopener" class="store-badge">
+        <span style="font-size:1.5rem">&#9654;</span>
+        <div>
+          <span class="store-badge-sub">Get it on</span>
+          Google Play
+        </div>
+      </a>
+      <a href="#" class="store-badge">
+        <span style="font-size:1.5rem">&#63743;</span>
+        <div>
+          <span class="store-badge-sub">Download on the</span>
+          App Store
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div>
+        <img src="assets/images/logo.png" alt="Croydon Mosque" class="footer-logo" style="height:60px;margin-bottom:12px;filter:brightness(0) invert(1);">
+        <p>525 London Road, Thornton Heath, Surrey CR7 6AR<br>
+        Tel: 020 8684 8200<br>
+        Email: enquiries@croydonmosque.com</p>
+      </div>
+      <div>
+        <h3>Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="#prayer-times">Prayer Times</a></li>
+          <li><a href="#events">Events</a></li>
+          <li><a href="#madrasah">Madrasah</a></li>
+          <li><a href="#donate">Donate</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Links</h3>
+        <ul class="footer-links">
+          <li><a href="https://ahmz786786-lab.github.io/croydon-mosque-app/" target="_blank" rel="noopener">Privacy Policy</a></li>
+          <li><a href="https://croydonmosque.mixlr.com/" target="_blank" rel="noopener">Live Stream</a></li>
+          <li><a href="#articles">Islamic Articles</a></li>
+          <li><a href="#download">Download App</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Croydon Mosque & Islamic Centre. All rights reserved.</span>
+      <span>Made with love for the community</span>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/hijri-date.js" defer></script>
+  <script src="js/prayer-times.js" defer></script>
+  <script src="js/ramadan.js" defer></script>
+  <script src="js/app.js" defer></script>
+
+</body>
+</html>

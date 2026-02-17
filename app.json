@@ -24,7 +24,8 @@
         "NSLocationWhenInUseUsageDescription": "We need your location to show the Qibla direction.",
         "NSMotionUsageDescription": "We need access to device motion for the compass feature.",
         "NSPhotoLibraryUsageDescription": "Allow Croydon Mosque to access your photos to upload event images.",
-        "NSCameraUsageDescription": "Allow Croydon Mosque to use the camera to take event photos."
+        "NSCameraUsageDescription": "Allow Croydon Mosque to use the camera to take event photos.",
+        "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
@@ -36,8 +37,11 @@
       "package": "com.croydonmosque.app",
       "versionCode": 1,
       "permissions": [
-        "ACCESS_FINE_LOCATION",
-        "ACCESS_COARSE_LOCATION"
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.RECORD_AUDIO"
       ]
     },
     "web": {
@@ -79,7 +83,6 @@
     "experiments": {
       "typedRoutes": true
     },
-    "privacyUrl": "https://ahmz786786-lab.github.io/croydon-mosque-app/",
     "extra": {
       "router": {},
       "eas": {
