@@ -439,7 +439,7 @@ export default function PrayerTimesScreen() {
       </View>
 
       <Text style={[styles.tableNote, { color: apiError ? colors.accent : colors.textSecondary }]}>
-        {apiError ? 'Unable to fetch times \u2022 Pull down to refresh' : 'Start times sourced from croydonmosque.com \u2022 Pull down to refresh'}
+        {apiError ? 'Unable to fetch times \u2022 Pull down to refresh' : 'Prayer times sourced from mosque timetable \u2022 Pull down to refresh'}
       </Text>
 
       {/* Parking QR Code Card */}

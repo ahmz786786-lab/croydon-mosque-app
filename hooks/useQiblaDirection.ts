@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from 'react';
-import { Magnetometer } from 'expo-sensors';
 import * as Location from 'expo-location';
 import { KAABA_COORDINATES } from '@/constants/prayerTimes';
 
@@ -58,7 +57,6 @@ function lowPassFilter(
   newValue: number,
   alpha: number
 ): number {
-  // Handle wrap-around at 0/360 boundary
   let diff = newValue - oldValue;
   if (diff > 180) diff -= 360;
   if (diff < -180) diff += 360;
@@ -80,7 +78,7 @@ export function useQiblaDirection() {
   const lastHeading = useRef(0);
 
   useEffect(() => {
-    let subscription: any = null;
+    let headingSubscription: Location.LocationSubscription | null = null;
     let isMounted = true;
 
     const setup = async () => {
@@ -120,28 +118,14 @@ export function useQiblaDirection() {
           }));
         }
 
-        const isAvailable = await Magnetometer.isAvailableAsync();
-        if (!isAvailable) {
-          if (isMounted) {
-            setState(prev => ({
-              ...prev,
-              error: 'Magnetometer not available on this device',
-            }));
-          }
-          return;
-        }
-
-        Magnetometer.setUpdateInterval(50);
-
-        subscription = Magnetometer.addListener((data) => {
+        // Use Location heading for true north (accounts for magnetic declination)
+        headingSubscription = await Location.watchHeadingAsync((heading) => {
           if (!isMounted) return;
 
-          const { x, y } = data;
-          let rawHeading = Math.atan2(y, x) * (180 / Math.PI);
-          rawHeading = (rawHeading + 360) % 360;
+          const trueHeading = heading.trueHeading >= 0 ? heading.trueHeading : heading.magHeading;
 
           // Apply low-pass filter for smoothness
-          const smoothed = lowPassFilter(lastHeading.current, rawHeading, 0.15);
+          const smoothed = lowPassFilter(lastHeading.current, trueHeading, 0.15);
           lastHeading.current = smoothed;
 
           // Check if aligned with Qibla (within 5 degrees)
@@ -171,8 +155,8 @@ export function useQiblaDirection() {
 
     return () => {
       isMounted = false;
-      if (subscription) {
-        subscription.remove();
+      if (headingSubscription) {
+        headingSubscription.remove();
       }
     };
   }, []);
